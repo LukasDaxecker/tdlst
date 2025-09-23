@@ -203,7 +203,7 @@ void PrintHelp()
     printf("    * -C   ... Prints list of completed tasks\n");
     printf("    * -D <TITLE> ... Delete task\n");
     printf("    * -F <TITLE> ... Finish task\n");
-    printf("    * -A <PARAM> ... Finish task\n");
+    printf("    * -A <PARAM> ... Add task\n");
     printf("        PARAM:\n");
     printf("        * TITLE     ... Title of the task\n");
     printf("        * DESC      ... Task description\n");
