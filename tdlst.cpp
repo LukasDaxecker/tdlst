@@ -111,7 +111,6 @@ void TaskMngr::AddTask(const string title, const string task, const string deadl
 {
     tTask* ntask = new tTask{m_iID, title, task, deadline, false};
 
-
     m_listTasks.push_back(ntask);
     m_iID++;
 }
@@ -128,9 +127,10 @@ void TaskMngr::FinishTask(const string title)
 
 void TaskMngr::DeleteTask(const string title)
 {
+    const string comp = "\"" + title + "\"";
     for(tTask* task : m_listTasks)
     {
-        if(task->sTitle != title) continue;
+        if(task->sTitle != comp) continue;
         m_listTasks.remove(task);
         return;
     }
@@ -197,11 +197,10 @@ int main(int argc, char** argv)
 void PrintHelp()
 {
     printf("tdlst [-C | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
-    printf("Lightweight TODO-List\n\n");
     printf("Options:\n");
     printf("    * none ... Prints current list\n");
     printf("    * -C   ... Prints list of completed tasks\n");
-    printf("    * -D <TITLE> ... Delete task\n");
+    printf("    * -D <TITLE> ... Deletets task with given title\n");
     printf("    * -F <TITLE> ... Finish task\n");
     printf("    * -A <PARAM> ... Add task\n");
     printf("        PARAM:\n");
