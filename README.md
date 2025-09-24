@@ -4,6 +4,17 @@
 
 Lightweigth temporary TODO-list
 
+## Install
+
+```
+git clone git@github.com:LukasDaxecker/tdlst.git
+cd tdlst
+chmod +x install.sh
+./install.sh
+cd ..
+rm -rf tdlst
+```
+
 ## Help
 
 tdlst \[-C | -D|-F <TITLE> | -A <TITLE DESC DEADLINE\] 
