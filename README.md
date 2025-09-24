@@ -17,12 +17,14 @@ rm -rf tdlst
 
 ## Help
 
-tdlst \[-C | -D|-F <TITLE> | -A <TITLE DESC DEADLINE\] 
+tdlst \[-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE\] 
 
 * none ... Prints current list
 * -C   ... Prints list of completed tasks
-* -D <TITLE> ... Delete task
-* -F <TITLE> ... Finish task
+* -d <ID> ... Delete task given ID
+* -f <ID> ... Finish task given ID
+* -D <TITLE> ... Delete task given title
+* -F <TITLE> ... Finish task with given title
 * -A <PARAM> ... Add task
   * PARAM:
   * TITLE     ... Title of task
