@@ -17,7 +17,7 @@ rm -rf tdlst
 
 ## Help
 
-tdlst \[-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE\] 
+tdlst \[-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE \[DESC DEADLINE\]>\] 
 
 * none ... Prints current list
 * -C   ... Prints list of completed tasks
