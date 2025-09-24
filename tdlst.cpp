@@ -87,6 +87,10 @@ bool TaskMngr::ReadFile()
         // Last field: bFinished
         bFinished = stoi(temp) != 0;
 
+
+        sTitle = sTitle.substr(1, sTitle.size()-2);
+        sTask = sTask.substr(1, sTask.size()-2);
+        sDeadline = sDeadline.substr(1, sDeadline.size()-2);
         tTask* ntask = new tTask{iID, sTitle, sTask, sDeadline, bFinished};
         m_listTasks.push_back(ntask);
 
@@ -123,17 +127,18 @@ void TaskMngr::FinishTask(const string title)
         task->bFinished = true;
         return;
     }
+    printf("Task %s was not found\n", title.c_str());
 }
 
 void TaskMngr::DeleteTask(const string title)
 {
-    const string comp = "\"" + title + "\"";
     for(tTask* task : m_listTasks)
     {
-        if(task->sTitle != comp) continue;
+        if(task->sTitle != title) continue;
         m_listTasks.remove(task);
         return;
     }
+    printf("Task %s was not found\n", title.c_str());
 }
 
 void TaskMngr::DeleteTask(const int iID)
@@ -144,6 +149,7 @@ void TaskMngr::DeleteTask(const int iID)
         m_listTasks.remove(task);
         return;
     }
+    printf("Task with ID %d was not found\n", iID); 
 }
 
 //------------------------
@@ -173,6 +179,10 @@ int main(int argc, char** argv)
                 mgr.DeleteTask(argv[2]);
                 mgr.WriteFile();
             }
+            else if(strcmp(argv[1], "-d") == 0) {
+                mgr.DeleteTask(atoi(argv[2]));
+                mgr.WriteFile();
+            }
             else if(strcmp(argv[1], "-F") == 0) {
                 mgr.FinishTask(argv[2]);
                 mgr.WriteFile();
@@ -196,10 +206,11 @@ int main(int argc, char** argv)
 
 void PrintHelp()
 {
-    printf("tdlst [-C | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
+    printf("tdlst [-C | -d <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
     printf("Options:\n");
     printf("    * none ... Prints current list\n");
     printf("    * -C   ... Prints list of completed tasks\n");
+    printf("    * -d <ID> ... Deletets task with given ID\n");
     printf("    * -D <TITLE> ... Deletets task with given title\n");
     printf("    * -F <TITLE> ... Finish task\n");
     printf("    * -A <PARAM> ... Add task\n");
