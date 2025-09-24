@@ -32,6 +32,7 @@ class TaskMngr {
         void ListTasks(const bool flag) const;
         void AddTask(const string title, const string task, const string deadline);
         void FinishTask(const string title);
+        void FinishTask(const int iID);
         void DeleteTask(const string title);
         void DeleteTask(const int iID);
 };
@@ -130,6 +131,17 @@ void TaskMngr::FinishTask(const string title)
     printf("Task %s was not found\n", title.c_str());
 }
 
+void TaskMngr::FinishTask(const int iID)
+{
+    for(tTask* task : m_listTasks)
+    {
+        if(task->iID != iID) continue;
+        task->bFinished = true;
+        return;
+    }
+    printf("Task with ID %d was not found\n", iID);
+}
+
 void TaskMngr::DeleteTask(const string title)
 {
     for(tTask* task : m_listTasks)
@@ -187,6 +199,10 @@ int main(int argc, char** argv)
                 mgr.FinishTask(argv[2]);
                 mgr.WriteFile();
             }
+            else if(strcmp(argv[1], "-f") == 0) {
+                mgr.FinishTask(atoi(argv[2]));
+                mgr.WriteFile();
+            }
             else
                 PrintHelp();
             break;
@@ -206,13 +222,14 @@ int main(int argc, char** argv)
 
 void PrintHelp()
 {
-    printf("tdlst [-C | -d <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
+    printf("tdlst [-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
     printf("Options:\n");
     printf("    * none ... Prints current list\n");
     printf("    * -C   ... Prints list of completed tasks\n");
     printf("    * -d <ID> ... Deletets task with given ID\n");
+    printf("    * -f <ID> ... Finish task with given ID\n");
     printf("    * -D <TITLE> ... Deletets task with given title\n");
-    printf("    * -F <TITLE> ... Finish task\n");
+    printf("    * -F <TITLE> ... Finish task with given title\n");
     printf("    * -A <PARAM> ... Add task\n");
     printf("        PARAM:\n");
     printf("        * TITLE     ... Title of the task\n");
