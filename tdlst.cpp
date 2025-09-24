@@ -30,7 +30,7 @@ class TaskMngr {
         bool ReadFile();
         bool WriteFile();
         void ListTasks(const bool flag) const;
-        void AddTask(const string title, const string task, const string deadline);
+        void AddTask(const string title, const string task = "", const string deadline = "");
         void FinishTask(const string title);
         void FinishTask(const int iID);
         void DeleteTask(const string title);
@@ -107,8 +107,12 @@ void TaskMngr::ListTasks(const bool flag) const
     for(tTask* task : m_listTasks)
     {
         if(task->bFinished != flag) continue;
-        printf("%d. %s - %s\n", task->iID, task->sTitle.c_str(), task->sDeadline.c_str());
-        printf("\t%s\n", task->sTask.c_str());
+        if(!task->sDeadline.empty()) {
+            printf("%d. %s - %s\n", task->iID, task->sTitle.c_str(), task->sDeadline.c_str());
+            printf("\t%s\n", task->sTask.c_str());
+        } else {
+            printf("%d. %s\n", task->iID, task->sTitle.c_str());
+        }
     }
 }
 
@@ -203,6 +207,10 @@ int main(int argc, char** argv)
                 mgr.FinishTask(atoi(argv[2]));
                 mgr.WriteFile();
             }
+            else if(strcmp(argv[1], "-A") == 0) {
+                mgr.AddTask(argv[2]);
+                mgr.WriteFile();
+            }
             else
                 PrintHelp();
             break;
@@ -222,7 +230,7 @@ int main(int argc, char** argv)
 
 void PrintHelp()
 {
-    printf("tdlst [-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE DESC DEADLINE>]\n\n");
+    printf("tdlst [-C | -d|-f <ID> | -D|-F <TITLE> | -A <TITLE [DESC DEADLINE]>]\n\n");
     printf("Options:\n");
     printf("    * none ... Prints current list\n");
     printf("    * -C   ... Prints list of completed tasks\n");
